@@ -1,6 +1,7 @@
 const bookListSection = document.querySelector("#book-list");
-let bookCard = document.createElement("div");
-let title = document.createElement("p");
+const newBookForm = document.querySelector("#new-book-form");
+const formDialog = document.querySelector("#new-book-dialog");
+const newBookBtn = document.querySelector("#new-book-btn");
 
 const libraryBooks = [];
 
@@ -51,7 +52,22 @@ function createBookCardLines (cardLabel, bookInfo) {
     return line;
 }
 
-addBookToLibrary("a", "b", "c", "d", "e");
-addBookToLibrary("f", "g", "h", "i", "j");
-displayBooks();
+newBookBtn.addEventListener("click", () => {
+    formDialog.showModal();
+});
+
+newBookForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const target = event.target.elements;
+    let newBookAuthor = target.author.value;
+    let newBookTitle = target.title.value;
+    let newBookPages = target.pages.value;
+    let newBookStatus = target.status.value;
+    addBookToLibrary(newBookAuthor, newBookTitle, newBookPages, newBookStatus, crypto.randomUUID());
+    displayBooks();
+    formDialog.close();
+});
+
+addBookToLibrary("a", "b", "c", "d", crypto.randomUUID());
+addBookToLibrary("f", "g", "h", "i", crypto.randomUUID());
 displayBooks();
