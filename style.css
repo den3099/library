@@ -1,0 +1,10 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.book-card {
+    background-color: lightgray;
+    border-width: 1px;
+    border-style: solid;
+}
