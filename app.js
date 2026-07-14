@@ -49,10 +49,12 @@ function displayBooks () {
     bookListSection.textContent = "";
     for (const book of libraryBooks) {
         let bookCard = document.createElement("div");
+        let cardBtns = document.createElement("div");
         let statusBtn = document.createElement("button");
         let deleteBtn = document.createElement("button");
         
         bookCard.classList.add("book-card");
+        cardBtns.classList.add("card-btns");
         statusBtn.classList.add("status-btn");
         deleteBtn.classList.add("delete-btn");
         statusBtn.setAttribute("data-id", book.id);
@@ -60,13 +62,15 @@ function displayBooks () {
         statusBtn.textContent = "Change Read Status";
         deleteBtn.textContent = "Delete";
 
+        cardBtns.appendChild(statusBtn);
+        cardBtns.appendChild(deleteBtn);
+
         bookCard.appendChild(createBookCardLines("Author: ", book.author));
         bookCard.appendChild(createBookCardLines("Title: ", book.title));
         bookCard.appendChild(createBookCardLines("Number of Pages: ", book.pages));
         bookCard.appendChild(createBookCardLines("Read Status: ", book.readStatus));
         bookCard.appendChild(createBookCardLines("ID: ", book.id));
-        bookCard.appendChild(statusBtn);
-        bookCard.appendChild(deleteBtn);
+        bookCard.appendChild(cardBtns);
 
         bookListSection.appendChild(bookCard);
     }
@@ -78,6 +82,9 @@ function createBookCardLines (cardLabel, bookInfo) {
     let info = document.createElement("span");
 
     label.classList.add("card-label");
+    if (cardLabel === "Read Status: ") {
+        info.setAttribute("data-status", bookInfo);
+    }
     label.textContent = cardLabel;
     info.textContent = bookInfo;
 
